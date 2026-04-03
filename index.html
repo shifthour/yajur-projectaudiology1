@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confidential Investment Opportunity | Multi-Clinic Audiology Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { 
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['Source Serif Pro', 'serif']
+          },
+          colors: {
+            brand: {
+              primary: '#EF5944',
+              secondary: '#231F20',
+            },
+            dark: {
+              900: '#080C14',
+              800: '#0A0F1C',
+              700: '#121929'
+            }
+          }
+        }
+      }
+    }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+Pro:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-primary: #EF5944;
+            --brand-secondary: #231F20;
+            --brand-primary-rgb: 239, 89, 68;
+            --dark-900: #080C14;
+            --dark-800: #0A0F1C;
+            --dark-700: #121929;
+        }
+
+        body {
+            background-color: var(--dark-900);
+            color: #94A3B8;
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Source Serif Pro', serif;
+            color: #FFFFFF;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--brand-primary), #f78c7e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(var(--brand-primary-rgb), 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(var(--brand-primary-rgb), 0.1);
+        }
+        
+        .section-title-accent {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-bg {
+            background-color: var(--dark-900);
+            background-image: radial-gradient(ellipse at 30% 0%, rgba(239, 89, 68, 0.1) 0%, transparent 50%), radial-gradient(ellipse at 70% 0%, rgba(35, 31, 32, 0.1) 0%, transparent 50%);
+        }
+
+        .sticky-nav {
+            background: rgba(8, 12, 20, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-link.active {
+            color: var(--brand-primary);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in-out, padding 0.5s ease-in-out;
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .accordion-item.open .accordion-content {
+            opacity: 1;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .accordion-item.open .accordion-icon {
+            transform: rotate(45deg);
+        }
+        
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+
+        /* Modal Styles */
+        #modal-backdrop {
+            transition: opacity 0.3s ease-in-out;
+        }
+        #modal-container {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        
+        @media (max-width: 768px) {
+            #modal-container {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                max-width: 100%;
+                transform: translateY(100%);
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+            body.modal-open #modal-container {
+                transform: translateY(0);
+            }
+        }
+
+        /* Chart.js Tooltip */
+        .chartjs-tooltip {
+            background: rgba(18, 25, 41, 0.9);
+            border-radius: 8px;
+            color: white;
+            opacity: 1;
+            pointer-events: none;
+            position: absolute;
+            transform: translate(-50%, 0);
+            transition: all .1s ease;
+            padding: 8px;
+            font-size: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .chartjs-tooltip-key {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+            border-radius: 2px;
+        }
+
+        .fade-in-item {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .table-row-hover:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav id="main-nav" class="sticky-nav fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg width="150" height="40" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+                            <text x="10" y="25" font-family="Source Serif Pro, serif" font-size="22" font-weight="bold" fill="#FFFFFF">TrueNorth</text>
+                            <path d="M83 10 L87 5 L91 10 Z" fill="var(--brand-primary)"/>
+                            <text x="10" y="42" font-family="Inter, sans-serif" font-size="10" fill="#94A3B8" letter-spacing="0.5">MERGERS & ACQUISITIONS</text>
+                        </svg>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#highlights" class="nav-link text-slate-300 hover:text-brand-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Highlights</a>
+                        <a href="#market" class="nav-link text-slate-300 hover:text-brand-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Market</a>
+                        <a href="#financials" class="nav-link text-slate-300 hover:text-brand-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Financials</a>
+                        <a href="#growth" class="nav-link text-slate-300 hover:text-brand-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Growth</a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-4">
+                    <span class="text-xs uppercase tracking-widest text-slate-500">Confidential</span>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" id="mobile-menu-button" class="bg-dark-700 inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-white hover:bg-dark-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-900 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#overview" class="nav-link text-slate-300 hover:text-brand-primary block px-3 py-2 rounded-md text-base font-medium">Overview</a>
+                <a href="#highlights" class="nav-link text-slate-300 hover:text-brand-primary block px-3 py-2 rounded-md text-base font-medium">Highlights</a>
+                <a href="#market" class="nav-link text-slate-300 hover:text-brand-primary block px-3 py-2 rounded-md text-base font-medium">Market</a>
+                <a href="#financials" class="nav-link text-slate-300 hover:text-brand-primary block px-3 py-2 rounded-md text-base font-medium">Financials</a>
+                <a href="#growth" class="nav-link text-slate-300 hover:text-brand-primary block px-3 py-2 rounded-md text-base font-medium">Growth</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative min-h-screen flex items-center justify-center hero-bg overflow-hidden">
+            <canvas id="hero-canvas" class="absolute top-0 left-0 w-full h-full z-0"></canvas>
+            <div class="relative z-10 text-center px-4">
+                <div class="mb-4">
+                    <span class="inline-block bg-brand-primary/10 text-brand-primary text-sm font-semibold px-4 py-1 rounded-full">MERGERS & ACQUISITIONS</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight tracking-tighter mb-4">
+                    Multi-Clinic Audiology Platform
+                </h1>
+                <p class="max-w-3xl mx-auto text-lg md:text-xl text-slate-400">
+                    Western Canada Multi-Clinic Audiology Platform specializing in audiology services
+                </p>
+            </div>
+        </section>
+
+        <!-- Key Metrics Bar -->
+        <section class="py-12 -mt-32 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="glass-card p-6 fade-in-item" onclick="showModal('FY2025 Revenue', 'Represents the 6th consecutive record year of revenue for the platform.')">
+                        <p class="text-sm font-medium text-slate-400 mb-2">FY2025 Revenue</p>
+                        <p class="text-4xl font-bold gradient-text">
+                            $<span data-count="7000000">0</span>M
+                        </p>
+                        <p class="text-xs text-slate-500 mt-2">6th consecutive record year</p>
+                    </div>
+                    <div class="glass-card p-6 fade-in-item" onclick="showModal('Adjusted EBITDA', 'The platform maintains a strong adjusted EBITDA margin of approximately 28%.')">
+                        <p class="text-sm font-medium text-slate-400 mb-2">Adj. EBITDA</p>
+                        <p class="text-4xl font-bold gradient-text">
+                            $<span data-count="2000000">0</span>M
+                        </p>
+                        <p class="text-xs text-slate-500 mt-2">~28% margin</p>
+                    </div>
+                    <div class="glass-card p-6 fade-in-item" onclick="showModal('Gross Margin', 'The company has demonstrated consistent and high gross margins, averaging 76% since FY2022.')">
+                        <p class="text-sm font-medium text-slate-400 mb-2">Gross Margin</p>
+                        <p class="text-4xl font-bold gradient-text">
+                            <span data-count="76">0</span>%
+                        </p>
+                        <p class="text-xs text-slate-500 mt-2">Avg. since FY2022</p>
+                    </div>
+                    <div class="glass-card p-6 fade-in-item" onclick="showModal('Revenue CAGR', 'Compound Annual Growth Rate for revenue between Fiscal Year 2020 and Fiscal Year 2025.')">
+                        <p class="text-sm font-medium text-slate-400 mb-2">Revenue CAGR</p>
+                        <p class="text-4xl font-bold gradient-text">
+                            <span data-count="7">0</span>%
+                        </p>
+                        <p class="text-xs text-slate-500 mt-2">FY2020-FY2025</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Business Overview -->
+        <section id="overview" class="py-20 md:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight uppercase">
+                        Business <span class="section-title-accent">Overview</span>
+                    </h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-400">
+                        A premier independent group of audiology clinics operating in Western Canada with 6 years of record revenue growth and a well-established multi-decade operating history. The opportunity is presented by True North M&A.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="glass-card p-6 fade-in-item" onclick="showModal('Established Platform', 'The business is an established multi-brand platform with a long operating history.')">
+                        <h3 class="text-lg font-semibold text-white mb-2">Established Platform</h3>
+                        <p class="text-slate-400">Established multi-brand platform with a long operating history.</p>
+                    </div>
+                    <div class="glass-card p-6 fade-in-item" onclick="showModal('Strategic Footprint', 'The company has a multi-clinic footprint across strategic markets in Western Canada.')">
+                        <h3 class="text-lg font-semibold text-white mb-2">Strategic Footprint</h3>
+                        <p class="text-slate-400">Multi-clinic footprint, across strategic markets.</p>
+                    </div>
+                    <div class="glass-card p-6 fade-in-item" onclick="showModal('Market Presence', 'The platform boasts a strong local market presence throughout Western Canada.')">
+                        <h3 class="text-lg font-semibold text-white mb-2">Market Presence</h3>
+                        <p class="text-slate-400">Strong local market presence in Western Canada.</p>
+                    </div>
+                    <div class="glass-card p-6 fade-in-item" onclick="showModal('Loyal Customer Base', 'The clinics benefit from a loyal customer base with long-standing relationships.')">
+                        <h3 class="text-lg font-semibold text-white mb-2">Loyal Customer Base</h3>
+                        <p class="text-slate-400">Loyal customer base with long-standing relationships.</p>
+                    </div>
+                    <div class="glass-card p-6 fade-in-item" onclick="showModal('Recurring Revenue', 'Revenue is recurring, driven by predictable replacement cycles and ongoing service needs.')">
+                        <h3 class="text-lg font-semibold text-white mb-2">Recurring Revenue</h3>
+                        <p class="text-slate-400">Recurring revenue driven by predictable replacement cycles and ongoing service needs.</p>
+                    </div>
+                    <div class="glass-card p-6 fade-in-item" onclick="showModal('Experienced Team', 'An experienced team is in place to support all day-to-day operations.')">
+                        <h3 class="text-lg font-semibold text-white mb-2">Experienced Team</h3>
+                        <p class="text-slate-400">Experienced team in place to support day-to-day operations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Investment Highlights -->
+        <section id="highlights" class="py-20 md:py-32 bg-dark-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight uppercase">
+                        Investment <span class="section-title-accent">Highlights</span>
+                    </h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-400">
+                        Key attributes positioning the platform for continued success and growth.
+                    </p>
+                </div>
+                <div class="space-y-8">
+                    <div class="glass-card p-8 fade-in-item" onclick="showModal('Established Platform with Strong Regional Presence', '<ul><li class=\'mb-2\'>Established multi-brand platform with a long operating history.</li><li class=\'mb-2\'>Multi-clinic footprint across strategic markets.</li><li>Strong local market presence in Western Canada.</li></ul><p class=\'mt-4 text-slate-400\'>Key Metric: Multi-decade operating history</p>')">
+                        <h3 class="text-xl font-bold text-white mb-3">Established Platform with Strong Regional Presence</h3>
+                        <ul class="list-disc list-inside text-slate-400 space-y-2">
+                            <li>Established multi-brand platform with a long operating history.</li>
+                            <li>Multi-clinic footprint across strategic markets.</li>
+                            <li>Strong local market presence in Western Canada.</li>
+                        </ul>
+                    </div>
+                    <div class="glass-card p-8 fade-in-item" onclick="showModal('Recurring Revenue and Loyal Customer Base', '<ul><li class=\'mb-2\'>Loyal customer base with long-standing relationships.</li><li>Recurring revenue driven by predictable replacement cycles and ongoing service needs.</li></ul>')">
+                        <h3 class="text-xl font-bold text-white mb-3">Recurring Revenue and Loyal Customer Base</h3>
+                        <ul class="list-disc list-inside text-slate-400 space-y-2">
+                            <li>Loyal customer base with long-standing relationships.</li>
+                            <li>Recurring revenue driven by predictable replacement cycles and ongoing service needs.</li>
+                        </ul>
+                    </div>
+                    <div class="glass-card p-8 fade-in-item" onclick="showModal('Experienced, Turnkey Operational Team', '<ul><li>Experienced team in place to support day-to-day operations.</li></ul>')">
+                        <h3 class="text-xl font-bold text-white mb-3">Experienced, Turnkey Operational Team</h3>
+                        <ul class="list-disc list-inside text-slate-400 space-y-2">
+                            <li>Experienced team in place to support day-to-day operations.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Opportunity -->
+        <section id="market" class="py-20 md:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight uppercase">
+                        Market <span class="section-title-accent">Opportunity</span>
+                    </h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-400">
+                        The market is supported by strong secular tailwinds including aging demographics, high prevalence of hearing loss, significant underdiagnosis creating long-term demand, and government-supported demand through provincial programs that subsidize hearing aid purchases.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="glass-card p-6 text-center fade-in-item" onclick="showModal('Canadians aged 65+', 'Current estimated population of Canadians aged 65 and over.')">
+                        <p class="text-4xl font-bold gradient-text">~8.1M</p>
+                        <p class="text-sm text-slate-400 mt-2">Canadians aged 65+</p>
+                    </div>
+                    <div class="glass-card p-6 text-center fade-in-item" onclick="showModal('Projected Canadians aged 65+ by 2030', 'Projected population of Canadians aged 65 and over by the year 2030.')">
+                        <p class="text-4xl font-bold gradient-text">~9.3M</p>
+                        <p class="text-sm text-slate-400 mt-2">Projected by 2030</p>
+                    </div>
+                    <div class="glass-card p-6 text-center fade-in-item" onclick="showModal('Projected Canadians aged 65+ by 2040', 'Projected population of Canadians aged 65 and over by the year 2040.')">
+                        <p class="text-4xl font-bold gradient-text">~10.5M</p>
+                        <p class="text-sm text-slate-400 mt-2">Projected by 2040</p>
+                    </div>
+                    <div class="glass-card p-6 text-center fade-in-item" onclick="showModal('Prevalence of Hearing Loss', 'Approximately 65% of individuals aged 70-79 experience some form of hearing loss.')">
+                        <p class="text-4xl font-bold gradient-text">~65%</p>
+                        <p class="text-sm text-slate-400 mt-2">Hearing Loss (70-79 yrs)</p>
+                    </div>
+                </div>
+                <div class="mt-16 fade-in-item">
+                    <div class="h-[400px] glass-card p-4">
+                        <canvas id="marketChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Financials -->
+        <section id="financials" class="py-20 md:py-32 bg-dark-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight uppercase">
+                        Financial <span class="section-title-accent">Summary</span>
+                    </h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-400">
+                        Consistent top-line growth and strong profitability, demonstrating robust financial health. The company has achieved 6 years of record revenue growth.
+                    </p>
+                </div>
+                <div class="fade-in-item mb-12">
+                    <div class="h-[450px] glass-card p-6">
+                        <canvas id="financialsChart"></canvas>
+                    </div>
+                </div>
+                <div class="fade-in-item glass-card overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-slate-400">
+                            <thead class="text-xs text-slate-300 uppercase bg-white/5">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Year</th>
+                                    <th scope="col" class="px-6 py-3 text-right">Revenue ($)</th>
+                                    <th scope="col" class="px-6 py-3 text-right">Adj. EBITDA ($)</th>
+                                    <th scope="col" class="px-6 py-3 text-right">Gross Margin (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-white/10 table-row-hover">
+                                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">FY2022</th>
+                                    <td class="px-6 py-4 text-right">5,447,162</td>
+                                    <td class="px-6 py-4 text-right">1,387,673</td>
+                                    <td class="px-6 py-4 text-right">76.50%</td>
+                                </tr>
+                                <tr class="border-b border-white/10 table-row-hover">
+                                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">FY2023</th>
+                                    <td class="px-6 py-4 text-right">6,198,638</td>
+                                    <td class="px-6 py-4 text-right">1,642,486</td>
+                                    <td class="px-6 py-4 text-right">73.50%</td>
+                                </tr>
+                                <tr class="border-b border-white/10 table-row-hover">
+                                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">FY2024</th>
+                                    <td class="px-6 py-4 text-right">6,790,737</td>
+                                    <td class="px-6 py-4 text-right">2,034,599</td>
+                                    <td class="px-6 py-4 text-right">74.80%</td>
+                                </tr>
+                                <tr class="border-b border-white/10 table-row-hover">
+                                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">FY2025</th>
+                                    <td class="px-6 py-4 text-right">7,001,054</td>
+                                    <td class="px-6 py-4 text-right">1,961,686</td>
+                                    <td class="px-6 py-4 text-right">77.60%</td>
+                                </tr>
+                                <tr class="border-b border-white/10 table-row-hover">
+                                    <th scope="row" class="px-6 py-4 font-medium text-brand-primary whitespace-nowrap">FY2026F</th>
+                                    <td class="px-6 py-4 text-right text-brand-primary">7,679,529</td>
+                                    <td class="px-6 py-4 text-right text-brand-primary">2,189,968</td>
+                                    <td class="px-6 py-4 text-right text-brand-primary">73.18%</td>
+                                </tr>
+                                <tr class="table-row-hover">
+                                    <th scope="row" class="px-6 py-4 font-medium text-brand-primary whitespace-nowrap">FY2027P</th>
+                                    <td class="px-6 py-4 text-right text-brand-primary">8,063,505</td>
+                                    <td class="px-6 py-4 text-right text-brand-primary">2,118,905</td>
+                                    <td class="px-6 py-4 text-right text-brand-primary">76.00%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Growth Levers -->
+        <section id="growth" class="py-20 md:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight uppercase">
+                        Growth <span class="section-title-accent">Levers</span>
+                    </h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-400">
+                        Multiple avenues for value creation and expansion post-acquisition.
+                    </p>
+                </div>
+                <div class="max-w-3xl mx-auto space-y-4" id="accordion-container">
+                    <div class="accordion-item glass-card overflow-hidden fade-in-item">
+                        <button class="accordion-header w-full flex justify-between items-center p-6 text-left">
+                            <span class="text-lg font-semibold text-white">Capacity Expansion</span>
+                            <span class="accordion-icon text-brand-primary text-2xl font-thin">+</span>
+                        </button>
+                        <div class="accordion-content px-6">
+                            <p class="text-slate-400">Increase clinic utilization from ~80% capacity by implementing extended hours and hiring additional practitioners to drive near-term upside.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item glass-card overflow-hidden fade-in-item">
+                        <button class="accordion-header w-full flex justify-between items-center p-6 text-left">
+                            <span class="text-lg font-semibold text-white">Clinic Acquisitions (Roll-Up Strategy)</span>
+                            <span class="accordion-icon text-brand-primary text-2xl font-thin">+</span>
+                        </button>
+                        <div class="accordion-content px-6">
+                            <p class="text-slate-400">Capitalize on a highly fragmented market with numerous independent operators by executing a clear roll-up acquisition strategy.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item glass-card overflow-hidden fade-in-item">
+                        <button class="accordion-header w-full flex justify-between items-center p-6 text-left">
+                            <span class="text-lg font-semibold text-white">Geographic Expansion</span>
+                            <span class="accordion-icon text-brand-primary text-2xl font-thin">+</span>
+                        </button>
+                        <div class="accordion-content px-6">
+                            <p class="text-slate-400">Leverage the existing Western Canadian footprint as a strong base for expansion into adjacent markets.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item glass-card overflow-hidden fade-in-item">
+                        <button class="accordion-header w-full flex justify-between items-center p-6 text-left">
+                            <span class="text-lg font-semibold text-white">Brand & Operational Optimization</span>
+                            <span class="accordion-icon text-brand-primary text-2xl font-thin">+</span>
+                        </button>
+                        <div class="accordion-content px-6">
+                            <p class="text-slate-400">Streamline branding and enhance operational efficiencies across all clinic locations.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item glass-card overflow-hidden fade-in-item">
+                        <button class="accordion-header w-full flex justify-between items-center p-6 text-left">
+                            <span class="text-lg font-semibold text-white">Brand Consolidation</span>
+                            <span class="accordion-icon text-brand-primary text-2xl font-thin">+</span>
+                        </button>
+                        <div class="accordion-content px-6">
+                            <p class="text-slate-400">Unify disparate clinic brands to enhance scalability and market recognition.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-800 border-t border-white/10">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-2xl font-bold text-white">Confidential Investment Opportunity</h3>
+            <p class="mt-2 text-slate-400">Presented by True North M&A</p>
+            <p class="mt-8 text-xs text-slate-500">
+                This document is confidential and intended for discussion purposes only. The information contained herein is not a recommendation or an offer to sell or a solicitation of an offer to buy any security.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div id="modal-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm"></div>
+        <div id="modal-container" class="relative z-10 w-full max-w-lg glass-card p-8">
+            <button id="modal-close-btn" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h3 id="modal-title" class="text-xl font-bold text-white mb-4"></h3>
+            <div id="modal-content" class="text-slate-300"></div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Data ---
+        const financialsData = {
+            labels: ["FY2022", "FY2023", "FY2024", "FY2025", "FY2026F", "FY2027P"],
+            revenue: [5447162, 6198638, 6790737, 7001054, 7679529, 8063505],
+            ebitda: [1387673, 1642486, 2034599, 1961686, 2189968, 2118905],
+            ebitdaMargin: [25.48, 26.5, 29.96, 28.02, 28.52, 26.28] // Calculated from projections for F/P
+        };
+
+        const marketData = {
+            labels: ["Current (65+)", "2030 (65+)", "2040 (65+)"],
+            population: [8.1, 9.3, 10.5]
+        };
+
+        // --- GSAP & ScrollTrigger Setup ---
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate sections on scroll
+        gsap.utils.toArray('section').forEach((section) => {
+            const items = section.querySelectorAll('.fade-in-item');
+            gsap.from(items, {
+                opacity: 0,
+                y: 40,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 80%',
+                    toggleActions: 'play none none none',
+                }
+            });
+        });
+
+        // Animate number counters
+        gsap.utils.toArray('[data-count]').forEach(el => {
+            const target = parseFloat(el.getAttribute('data-count'));
+            const isMillion = el.innerHTML.includes('M');
+            const isPercent = el.innerHTML.includes('%');
+            const isPrefix = el.innerHTML.includes('$');
+
+            gsap.from(el, {
+                textContent: 0,
+                duration: 2,
+                ease: 'power2.out',
+                snap: { textContent: 1 },
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 90%',
+                    toggleActions: 'play none none none',
+                },
+                onUpdate: function() {
+                    let value = parseFloat(this.targets()[0].textContent);
+                    if (isMillion) {
+                        el.textContent = (value / 1000000).toFixed(1);
+                    } else {
+                        el.textContent = Math.round(value).toLocaleString();
+                    }
+                }
+            });
+        });
+
+        // --- Hero Canvas Animation ---
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const particleCount = 40;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.color = 'rgba(239, 89, 68, ' + (Math.random() * 0.3 + 0.1) + ')';
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.01;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // --- Navigation ---
+        const nav = document.getElementById('main-nav');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('hidden');
+            mobileMenuButton.querySelector('svg.block').classList.toggle('hidden');
+            mobileMenuButton.querySelector('svg.hidden').classList.toggle('hidden');
+        });
+
+        // Scrollspy
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === entry.target.id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: '-50% 0px -50% 0px' });
+
+        sections.forEach(section => observer.observe(section));
+
+        // --- Accordion ---
+        const accordionContainer = document.getElementById('accordion-container');
+        if (accordionContainer) {
+            const accordionItems = accordionContainer.querySelectorAll('.accordion-item');
+            accordionItems.forEach((item, index) => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                if (index === 0) { // Open first item by default
+                    item.classList.add('open');
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+                header.addEventListener('click', () => {
+                    const isOpen = item.classList.contains('open');
+                    accordionItems.forEach(i => {
+                        i.classList.remove('open');
+                        i.querySelector('.accordion-content').style.maxHeight = '0px';
+                    });
+                    if (!isOpen) {
+                        item.classList.add('open');
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    }
+                });
+            });
+        }
+
+        // --- Modal ---
+        const modal = document.getElementById('modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalContainer = document.getElementById('modal-container');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+
+        window.showModal = (title, content) => {
+            modalTitle.textContent = title;
+            modalContent.innerHTML = content;
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden', 'modal-open');
+            setTimeout(() => {
+                modalBackdrop.style.opacity = '1';
+                modalContainer.style.opacity = '1';
+                if (window.innerWidth <= 768) {
+                    modalContainer.style.transform = 'translateY(0)';
+                } else {
+                    modalContainer.style.transform = 'scale(1)';
+                }
+            }, 10);
+        };
+
+        const closeModal = () => {
+            modalBackdrop.style.opacity = '0';
+            modalContainer.style.opacity = '0';
+            if (window.innerWidth <= 768) {
+                modalContainer.style.transform = 'translateY(100%)';
+            } else {
+                modalContainer.style.transform = 'scale(0.95)';
+            }
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden', 'modal-open');
+            }, 300);
+        };
+
+        modalBackdrop.addEventListener('click', closeModal);
+        modalCloseBtn.addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // --- Chart.js ---
+        Chart.defaults.color = '#94A3B8';
+        Chart.defaults.borderColor = 'rgba(255,255,255,0.08)';
+        Chart.defaults.font.family = 'Inter';
+        Chart.defaults.font.size = 13;
+
+        const createChart = (ctx, config) => {
+            let chart;
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    if (!chart) {
+                        chart = new Chart(ctx, config);
+                    }
+                    observer.disconnect();
+                }
+            }, { threshold: 0.5 });
+            observer.observe(ctx.canvas);
+        };
+
+        // Financials Chart
+        const financialsCtx = document.getElementById('financialsChart').getContext('2d');
+        const financialsChartConfig = {
+            type: 'bar',
+            data: {
+                labels: financialsData.labels,
+                datasets: [
+                    {
+                        type: 'line',
+                        label: 'Adj. EBITDA Margin (%)',
+                        data: financialsData.ebitdaMargin,
+                        borderColor: 'rgba(255, 255, 255, 0.5)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                        yAxisID: 'y1',
+                        tension: 0.3,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#0A0F1C',
+                        pointBorderColor: 'rgba(255, 255, 255, 0.5)',
+                        pointBorderWidth: 2,
+                    },
+                    {
+                        type: 'bar',
+                        label: 'Revenue ($M)',
+                        data: financialsData.revenue.map(v => v / 1000000),
+                        backgroundColor: (context) => {
+                            const chart = context.chart;
+                            const {ctx, chartArea} = chart;
+                            if (!chartArea) return null;
+                            const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+                            gradient.addColorStop(0, 'rgba(239, 89, 68, 0.4)');
+                            gradient.addColorStop(1, 'rgba(239, 89, 68, 0.8)');
+                            return gradient;
+                        },
+                        borderColor: 'rgba(239, 89, 68, 1)',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                        yAxisID: 'y',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                scales: {
+                    x: { grid: { display: false } },
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: { display: true, text: 'Revenue ($M)' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: { display: true, text: 'Adj. EBITDA Margin (%)' },
+                        grid: { drawOnChartArea: false },
+                        ticks: { callback: value => value + '%' }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'top', labels: { usePointStyle: true } },
+                    tooltip: {
+                        backgroundColor: 'rgba(18, 25, 41, 0.9)',
+                        titleFont: { weight: 'bold' },
+                        bodyFont: { size: 12 },
+                        padding: 10,
+                        borderColor: 'rgba(255,255,255,0.1)',
+                        borderWidth: 1,
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed.y !== null) {
+                                    if (context.dataset.yAxisID === 'y1') {
+                                        label += context.parsed.y.toFixed(2) + '%';
+                                    } else {
+                                        label += '$' + context.parsed.y.toFixed(2) + 'M';
+                                    }
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        createChart(financialsCtx, financialsChartConfig);
+
+        // Market Chart
+        const marketCtx = document.getElementById('marketChart').getContext('2d');
+        const marketChartConfig = {
+            type: 'bar',
+            data: {
+                labels: marketData.labels,
+                datasets: [{
+                    label: 'Population (Millions)',
+                    data: marketData.population,
+                    backgroundColor: 'rgba(239, 89, 68, 0.6)',
+                    borderColor: 'rgba(239, 89, 68, 1)',
+                    borderWidth: 1,
+                    borderRadius: 6,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Population (Millions)' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    },
+                    y: { grid: { display: false } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'Projected Growth of Canadian Population Aged 65+', color: '#fff', font: { size: 16, family: 'Source Serif Pro' } },
+                    tooltip: {
+                        backgroundColor: 'rgba(18, 25, 41, 0.9)',
+                        callbacks: {
+                            label: (context) => `${context.dataset.label}: ${context.parsed.x}M`
+                        }
+                    }
+                }
+            }
+        };
+        createChart(marketCtx, marketChartConfig);
+    });
+    </script>
+
+<!-- Yajur Analytics Tracking -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+  var SB_URL='https://eflvzsfgoelonfclzrjy.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVmbHZ6c2Znb2Vsb25mY2x6cmp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc2NTYxOTAsImV4cCI6MjA2MzIzMjE5MH0.LCxuFDJuBO8ggiqdWpv5uoOkplKWbcF8z5E_kdpOEWU',PID='bc3fd7a7-f335-4948-8a46-7a34e536ad3d';
+  var sb=null,sid=null,start=Date.now(),maxScroll=0,visitId=null,flushed=false;
+  var milestones=new Set(),sectionTimers={};
+  try{
+    if(window.supabase){
+      sb=window.supabase.createClient(SB_URL,SB_KEY);
+      sid=crypto.randomUUID?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){var r=Math.random()*16|0;return(c==='x'?r:(r&0x3|0x8)).toString(16)});
+      var up=new URLSearchParams(window.location.search);
+      function devType(){var w=window.innerWidth;return w<768?'mobile':w<1024?'tablet':'desktop'}
+      (async function(){
+        var d=await sb.from('page_visits').insert({project_id:PID,session_id:sid,referrer:document.referrer||null,user_agent:navigator.userAgent,device_type:devType(),screen_width:screen.width,screen_height:screen.height,utm_source:up.get('utm_source'),utm_medium:up.get('utm_medium'),utm_campaign:up.get('utm_campaign')}).select('id').single();
+        if(d.data)visitId=d.data.id;
+      })();
+      trk('page_view',location.pathname,{referrer:document.referrer});
+    }
+  }catch(e){console.warn('Analytics init:',e)}
+
+  function trk(type,target,data,section){
+    if(!sb)return;
+    sb.from('page_events').insert({project_id:PID,session_id:sid,event_type:type,event_target:target||null,event_data:data||{},section_id:section||null}).then(function(){});
+  }
+
+  // Scroll depth
+  var st=null;
+  window.addEventListener('scroll',function(){
+    if(st)return;
+    st=setTimeout(function(){
+      st=null;
+      var top=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;
+      if(h<=0)return;
+      var pct=Math.round(top/h*100);
+      if(pct>maxScroll)maxScroll=pct;
+      [25,50,75,90,100].forEach(function(m){if(pct>=m&&!milestones.has(m)){milestones.add(m);trk('scroll_milestone',m+'%',{percent:m})}});
+    },250);
+  });
+
+  // Section time tracking
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var id=e.target.id||'unknown';
+      if(!sectionTimers[id])sectionTimers[id]={enter:null,total:0};
+      if(e.isIntersecting){sectionTimers[id].enter=Date.now()}
+      else if(sectionTimers[id].enter){sectionTimers[id].total+=Date.now()-sectionTimers[id].enter;sectionTimers[id].enter=null}
+    });
+  },{threshold:0.3});
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.querySelectorAll('section[id],div[id]').forEach(function(el){if(el.id)obs.observe(el)});
+    var first=document.querySelector('section');
+    if(first&&!first.id){first.id='hero';obs.observe(first)}
+  });
+
+  // Click tracking
+  document.addEventListener('click',function(e){
+    var el=e.target.closest('a,button,[onclick]');
+    if(!el)return;
+    var sec=el.closest('section[id],div[id]');
+    trk('link_click',el.textContent.trim().substring(0,80),{href:el.href||'',tag:el.tagName},sec?sec.id:null);
+  });
+
+  // Flush on exit
+  function flush(){
+    if(flushed||!sb)return;flushed=true;
+    Object.keys(sectionTimers).forEach(function(id){
+      if(sectionTimers[id].enter){sectionTimers[id].total+=Date.now()-sectionTimers[id].enter;sectionTimers[id].enter=null}
+    });
+    Object.entries(sectionTimers).forEach(function(e){
+      if(e[1].total>500)trk('section_view',e[0],{duration_ms:e[1].total,duration_seconds:Math.round(e[1].total/1000)},e[0]);
+    });
+    if(visitId){
+      var dur=Math.round((Date.now()-start)/1000);
+      fetch(SB_URL+'/rest/v1/page_visits?id=eq.'+visitId,{method:'PATCH',headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Prefer':'return=minimal'},body:JSON.stringify({duration_seconds:dur,max_scroll_percent:maxScroll}),keepalive:true}).catch(function(){});
+    }
+  }
+  window.addEventListener('beforeunload',flush);
+  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')flush()});
+})();
+</script>
+</body>
+</html>
