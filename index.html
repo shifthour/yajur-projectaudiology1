@@ -211,6 +211,55 @@
                     <span class="text-xs uppercase tracking-widest text-slate-500">Confidential</span>
                 </div>
                 <div class="-mr-2 flex md:hidden">
+                    <!-- Mobile menu button -->
+                    <button type="button" id="mobile-menu-button" class="bg-dark-800 inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-white hover:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#highlights" class="nav-link text-slate-300 hover:text-brand-primary block px-3 py-2 rounded-md text-base font-medium">Highlights</a>
+                <a href="#market" class="nav-link text-slate-300 hover:text-brand-primary block px-3 py-2 rounded-md text-base font-medium">Market</a>
+                <a href="#financials" class="nav-link text-slate-300 hover:text-brand-primary block px-3 py-2 rounded-md text-base font-medium">Financials</a>
+                <a href="#growth" class="nav-link text-slate-300 hover:text-brand-primary block px-3 py-2 rounded-md text-base font-medium">Growth</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-bg relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+            <div class="absolute inset-0 bg-dark-900 opacity-50"></div>
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-6 leading-tight fade-in-item">
+                    <span class="gradient-text">Investment Opportunity</span> in a
+                    <br class="hidden md:block">
+                    Leading Audiology Platform
+                </h1>
+                <p class="max-w-3xl mx-auto text-lg md:text-xl text-slate-400 mb-10 fade-in-item" style="animation-delay: 0.2s;">
+                    Acquire a profitable, multi-clinic audiology business poised for significant regional expansion. Strong financial performance, a loyal patient base, and a scalable operational model present a compelling opportunity for investors.
+                </p>
+                <div class="fade-in-item" style="animation-delay: 0.4s;">
+                    <a href="#highlights" class="inline-block bg-brand-primary text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">
+                        Explore The Opportunity
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>="-mr-2 flex md:hidden">
                     <button type="button" id="mobile-menu-button" class="bg-dark-700 inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-white hover:bg-dark-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-900 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
                         <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -239,7 +288,7 @@
                     <span class="inline-block bg-brand-primary/10 text-brand-primary text-sm font-semibold px-4 py-1 rounded-full">MERGERS & ACQUISITIONS</span>
                 </div>
                 <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight tracking-tighter mb-4">
-                    Multi-Clinic Audiology Platform
+                    Highly Profitable Multi-Clinic Audiology Platform
                 </h1>
                 <p class="max-w-3xl mx-auto text-lg md:text-xl text-slate-400">
                     Western Canada Multi-Clinic Audiology Platform specializing in audiology services
@@ -473,7 +522,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-bold tracking-tight uppercase">
-                        Growth <span class="section-title-accent">Levers</span>
+                        Growth <span class="section-title-accent">Opportunities</span>
                     </h2>
                     <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-400">
                         Multiple avenues for value creation and expansion post-acquisition.
@@ -486,7 +535,7 @@
                             <span class="accordion-icon text-brand-primary text-2xl font-thin">+</span>
                         </button>
                         <div class="accordion-content px-6">
-                            <p class="text-slate-400">Increase clinic utilization from ~80% capacity by implementing extended hours and hiring additional practitioners to drive near-term upside.</p>
+                            <p class="text-slate-400">Clinics currently operating at ~80% capacity, providing near-term upside through extended hours and additional practitioners.</p>
                         </div>
                     </div>
                     <div class="accordion-item glass-card overflow-hidden fade-in-item">
@@ -495,7 +544,7 @@
                             <span class="accordion-icon text-brand-primary text-2xl font-thin">+</span>
                         </button>
                         <div class="accordion-content px-6">
-                            <p class="text-slate-400">Capitalize on a highly fragmented market with numerous independent operators by executing a clear roll-up acquisition strategy.</p>
+                            <p class="text-slate-400">A highly fragmented market with numerous independent operators presents a clear roll-up opportunity.</p>
                         </div>
                     </div>
                     <div class="accordion-item glass-card overflow-hidden fade-in-item">
@@ -504,7 +553,7 @@
                             <span class="accordion-icon text-brand-primary text-2xl font-thin">+</span>
                         </button>
                         <div class="accordion-content px-6">
-                            <p class="text-slate-400">Leverage the existing Western Canadian footprint as a strong base for expansion into adjacent markets.</p>
+                            <p class="text-slate-400">Existing Western Canadian footprint provides a strong base for expansion into adjacent markets.</p>
                         </div>
                     </div>
                     <div class="accordion-item glass-card overflow-hidden fade-in-item">
@@ -513,7 +562,7 @@
                             <span class="accordion-icon text-brand-primary text-2xl font-thin">+</span>
                         </button>
                         <div class="accordion-content px-6">
-                            <p class="text-slate-400">Streamline branding and enhance operational efficiencies across all clinic locations.</p>
+                            <p class="text-slate-400">Opportunity to streamline branding and enhance operational efficiencies across locations.</p>
                         </div>
                     </div>
                     <div class="accordion-item glass-card overflow-hidden fade-in-item">
@@ -522,7 +571,7 @@
                             <span class="accordion-icon text-brand-primary text-2xl font-thin">+</span>
                         </button>
                         <div class="accordion-content px-6">
-                            <p class="text-slate-400">Unify disparate clinic brands to enhance scalability and market recognition.</p>
+                            <p class="text-slate-400">Unifying brands enhances scalability and recognition.</p>
                         </div>
                     </div>
                 </div>
